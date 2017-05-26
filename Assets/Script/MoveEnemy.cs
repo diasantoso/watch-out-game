@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveEnemy : MonoBehaviour {
  
     public GameObject Character;
-    float x = 6f;
+    float x = 8f;
     float y, z = 0.00F;
  
     public float speedMin;

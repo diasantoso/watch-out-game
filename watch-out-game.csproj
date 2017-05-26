@@ -128,6 +128,7 @@
     <Compile Include="Assets\Script\MoveEnemy.cs" />
     <Compile Include="Assets\Script\PlayButton.cs" />
     <Compile Include="Assets\Script\Spawner.cs" />
+    <Compile Include="Assets\Script\Splash.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fantasy Skybox FREE\Fog and Ambient reference.txt" />
