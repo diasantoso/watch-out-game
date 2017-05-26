@@ -3,23 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ControlCharacter : MonoBehaviour {
-   [System.Serializable]
-
-    public class CAnimationClips
-    {
-        public AnimationClip Clips;
-        public WrapMode Wrap;
-        public KeyCode PressedKey;
-    }
 
     public GameObject Character;
-    public AnimationClip Idle;
+  
     public KeyCode Jump = KeyCode.UpArrow;
     public KeyCode Jongkok = KeyCode.DownArrow;
-
-    public CAnimationClips lompat;
-    public CAnimationClips jongkok;
-    public CAnimationClips berdiri;
 
     public float Speed = 1;
     int charStatus ;
@@ -28,7 +16,7 @@ public class ControlCharacter : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        Character.GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -36,19 +24,16 @@ public class ControlCharacter : MonoBehaviour {
         charStatus = 0;
         MoveDirection = Vector3.zero;
 
-        if(Input.GetKey(lompat.PressedKey) ||   Input.GetKey(KeyCode.UpArrow))
+        if(Input.GetKey(KeyCode.UpArrow))
         {
             charStatus = 1;
 
-            Character.GetComponent<Animation>().wrapMode = lompat.Wrap;
-            Character.GetComponent<Animation>().CrossFade(lompat.Clips.name);
+            Character.GetComponent<Animator>().SetBool("isJump", true);
         }
-        if(Input.GetKey(jongkok.PressedKey) || Input.GetKey(jongkok.PressedKey))
+        if(Input.GetKey(KeyCode.DownArrow))
         {
             charStatus = 2;
-
-            Character.GetComponent<Animation>().wrapMode = jongkok.Wrap;
-            Character.GetComponent<Animation>().CrossFade(jongkok.Clips.name);
+            Character.GetComponent<Animator>().SetBool("isNunduk", true);
         }
         if (charStatus == 1)
         {
@@ -58,18 +43,19 @@ public class ControlCharacter : MonoBehaviour {
             {
                 MoveDirection = Vector3.up * Speed;
             }
-            else if (Input.GetKey(Jongkok))
+
+        }
+        else if (charStatus == 2)
+        {
+            if (Input.GetKey(Jongkok))
             {
                 MoveDirection = Vector3.down * Speed;
             }
-
-           
         }
-        if (charStatus == 0)
+           
+        else if(charStatus == 0)
         {
-            Character.GetComponent<Animation>().wrapMode = WrapMode.Loop;
-            Character.GetComponent<Animation>().CrossFade(berdiri.Clips.name);
-
+            Character.GetComponent<Animator>().SetBool("isIdle", true);
         }
 
     }
